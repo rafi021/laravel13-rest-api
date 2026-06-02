@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_KEY'),
+    ],
+
 ];
