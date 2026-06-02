@@ -22,6 +22,7 @@ class Product extends Model
         return [
             'price' => 'float',
             'stock' => 'integer',
+            'embedding' => 'array',
         ];
     }
 
