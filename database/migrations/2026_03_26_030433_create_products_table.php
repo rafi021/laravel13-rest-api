@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::ensureVectorExtensionExists();
+        // Schema::ensureVectorExtensionExists();
 
         Schema::create('products', function (Blueprint $table) {
             $table->id();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('stock')->default(0);
-            $table->vector('embedding', dimensions: 1024)->nullable()->index();
+            //$table->vector('embedding', dimensions: 1024)->nullable()->index();
             $table->timestamps();
         });
     }

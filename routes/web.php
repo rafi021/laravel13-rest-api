@@ -1,8 +1,10 @@
 <?php
 
+use App\Ai\Agents\ChatAgent;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\FrontendController;
 use App\Http\Controllers\Web\PostController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
@@ -16,5 +18,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('posts', PostController::class);
 });
+
+
+Route::get('/chat', function (Request $request) {
+    return view('chat');
+})->name('chat.index');
+
+Route::get('/chat-stream', function (Request $request) {
+    $request->validate([
+        'query' => ['required', 'string'],
+    ]);
+    return (new ChatAgent())->stream($request->input('query'));
+})->name('chat.stream');
 
 require __DIR__ . '/settings.php';
