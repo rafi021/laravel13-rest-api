@@ -26,7 +26,8 @@ class ProductFactory extends Factory
         $textToEmbed = $name . ' ' . $description;
 
         $embeddingVector = Embeddings::for([$textToEmbed])
-            ->generate()->embeddings;
+            ->dimensions(1024)
+            ->generate(Lab::Ollama, 'mxbai-embed-large:latest')->embeddings[0];
 
         return [
             'category_id'   => Category::get()->random()->id,

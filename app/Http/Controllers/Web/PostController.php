@@ -7,7 +7,9 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
+use Laravel\Ai\Enums\Lab;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PostController extends Controller
@@ -38,7 +40,18 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        Post::query()->create($request->validated());
+        $validated = $request->validated();
+
+        $embeddingText = "Title: {$validated['title']}\n\nContent: {$validated['content']}";
+
+        Post::query()->create($validated + [
+            'embedding' => Str::of($embeddingText)->toEmbeddings(
+                provider: Lab::Ollama,
+                dimensions: 1024,
+                model: 'mxbai-embed-large:latest'
+            ),
+        ]);
+
         return to_route('posts.index')->with('success', 'Post created successfully.');
     }
 
@@ -67,7 +80,18 @@ class PostController extends Controller
     public function update(StorePostRequest $request, int $id): RedirectResponse
     {
         $post = Post::query()->findOrFail($id);
-        $post->update($request->validated());
+        $validated = $request->validated();
+
+        $embeddingText = "Title: {$validated['title']}\n\nContent: {$validated['content']}";
+
+        $post->update($validated + [
+            'embedding' => Str::of($embeddingText)->toEmbeddings(
+                provider: Lab::Ollama,
+                dimensions: 1024,
+                model: 'mxbai-embed-large:latest'
+            ),
+        ]);
+
         return to_route('posts.index')->with('success', 'Post updated successfully.');
     }
 
@@ -77,7 +101,7 @@ class PostController extends Controller
     public function destroy(int $id): RedirectResponse
     {
         $post = Post::query()->findOrFail($id);
-        $post->delete();
+        $post->delete($id);
         return to_route('posts.index')->with('success', 'Post deleted successfully.');
     }
 }

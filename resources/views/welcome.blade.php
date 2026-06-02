@@ -1,78 +1,104 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ config('app.name', 'Laravel') }} | Blog</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|ibm-plex-serif:400,500,600" rel="stylesheet" />
+    <title>{{ config('app.name', 'Laravel') }} | Blog</title>
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=space-grotesk:400,500,600,700|ibm-plex-serif:400,500,600"
+        rel="stylesheet" />
 
-        <style>
-            body {
-                font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-            }
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
 
-            .serif-display {
-                font-family: 'IBM Plex Serif', ui-serif, Georgia, serif;
-            }
+    <style>
+        body {
+            font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+        }
 
-            .mesh-background {
-                background-image:
-                    radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.16), transparent 35%),
-                    radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.16), transparent 38%),
-                    radial-gradient(circle at 10% 90%, rgba(14, 116, 144, 0.16), transparent 40%),
-                    linear-gradient(135deg, #f7fafc, #f2f8f8);
-            }
-        </style>
-    </head>
-    <body class="mesh-background min-h-screen text-zinc-900 antialiased">
-        <div class="mx-auto flex w-full max-w-7xl flex-col px-6 pb-14 pt-10 lg:px-10">
-            <header class="mb-10 flex flex-wrap items-center justify-between gap-4">
-                <a href="{{ route('home') }}" class="text-xl font-semibold tracking-tight">
-                    Instructory Blog
-                </a>
+        .serif-display {
+            font-family: 'IBM Plex Serif', ui-serif, Georgia, serif;
+        }
 
-                <nav class="flex items-center gap-3 text-sm font-medium">
-                    @if (Route::has('login'))
-                        @auth
-                            <a href="{{ route('dashboard') }}" class="rounded-full border border-zinc-300 bg-white/70 px-4 py-2 transition hover:border-zinc-400 hover:bg-white">
-                                Dashboard
+        .mesh-background {
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(6, 182, 212, 0.16), transparent 35%),
+                radial-gradient(circle at 80% 0%, rgba(16, 185, 129, 0.16), transparent 38%),
+                radial-gradient(circle at 10% 90%, rgba(14, 116, 144, 0.16), transparent 40%),
+                linear-gradient(135deg, #f7fafc, #f2f8f8);
+        }
+    </style>
+</head>
+
+<body class="mesh-background min-h-screen text-zinc-900 antialiased">
+    <div class="mx-auto flex w-full max-w-7xl flex-col px-6 pb-14 pt-10 lg:px-10">
+        <header class="mb-10 flex flex-wrap items-center justify-between gap-4">
+            <a href="{{ route('home') }}" class="text-xl font-semibold tracking-tight">
+                Instructory Blog
+            </a>
+
+            <nav class="flex items-center gap-3 text-sm font-medium">
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ route('dashboard') }}"
+                            class="rounded-full border border-zinc-300 bg-white/70 px-4 py-2 transition hover:border-zinc-400 hover:bg-white">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('login') }}"
+                            class="rounded-full border border-zinc-300 bg-white/70 px-4 py-2 transition hover:border-zinc-400 hover:bg-white">
+                            Log in
+                        </a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}"
+                                class="rounded-full bg-zinc-900 px-4 py-2 text-white transition hover:bg-zinc-800">
+                                Register
                             </a>
-                        @else
-                            <a href="{{ route('login') }}" class="rounded-full border border-zinc-300 bg-white/70 px-4 py-2 transition hover:border-zinc-400 hover:bg-white">
-                                Log in
-                            </a>
+                        @endif
+                    @endauth
+                @endif
+            </nav>
+        </header>
 
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="rounded-full bg-zinc-900 px-4 py-2 text-white transition hover:bg-zinc-800">
-                                    Register
-                                </a>
-                            @endif
-                        @endauth
-                    @endif
-                </nav>
-            </header>
+        <section class="mb-10 rounded-3xl border border-zinc-200/70 bg-white/70 p-8 backdrop-blur-md lg:p-10">
+            <p
+                class="mb-3 inline-flex rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-cyan-800">
+                Editorial Insights
+            </p>
+            <h1 class="serif-display mb-4 max-w-3xl text-4xl font-semibold leading-tight text-zinc-900 lg:text-5xl">
+                Fresh Posts, Practical Thinking, and Clean Laravel Craft
+            </h1>
+            <p class="max-w-2xl text-base leading-relaxed text-zinc-600 lg:text-lg">
+                Explore our latest articles on development, architecture, and production-ready techniques. Each post is
+                curated to be useful, actionable, and easy to apply.
+            </p>
 
-            <section class="mb-10 rounded-3xl border border-zinc-200/70 bg-white/70 p-8 backdrop-blur-md lg:p-10">
-                <p class="mb-3 inline-flex rounded-full bg-cyan-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.15em] text-cyan-800">
-                    Editorial Insights
-                </p>
-                <h1 class="serif-display mb-4 max-w-3xl text-4xl font-semibold leading-tight text-zinc-900 lg:text-5xl">
-                    Fresh Posts, Practical Thinking, and Clean Laravel Craft
-                </h1>
-                <p class="max-w-2xl text-base leading-relaxed text-zinc-600 lg:text-lg">
-                    Explore our latest articles on development, architecture, and production-ready techniques. Each post is curated to be useful, actionable, and easy to apply.
-                </p>
-            </section>
+            {{-- <form action="{{ route('home') }}" method="GET" class="mt-8 max-w-md">
+                    <div class="relative">
+                        <input
+                            type="text"
+                            name="q"
+                            value="{{ request('q') }}"
+                            placeholder="Search posts semantically..."
+                            class="w-full rounded-full border border-zinc-300 bg-white/50 py-3 pl-5 pr-12 text-sm focus:border-zinc-400 focus:outline-none focus:ring-0"
+                        >
+                        <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-zinc-900 p-2 text-white hover:bg-zinc-800">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form> --}}
+        </section>
 
-            <livewire:frontend.post-landing :posts="$posts" />
-        </div>
+        <livewire:frontend.post-landing />
+    </div>
 
-        @livewireScripts
-    </body>
+    @livewireScripts
+</body>
+
 </html>

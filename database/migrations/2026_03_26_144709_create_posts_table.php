@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Category::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('content');
+            $table->vector('embedding', dimensions: 1024)->nullable()->index();
             $table->timestamps();
         });
     }

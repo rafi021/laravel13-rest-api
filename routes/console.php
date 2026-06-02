@@ -4,6 +4,7 @@ use App\Models\Product;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
+use Laravel\Ai\Enums\Lab;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
@@ -11,7 +12,12 @@ Artisan::command('inspire', function () {
 
 Artisan::command('find-product {query}', function (string $query) {
     $products = Product::query()
-        ->whereVectorSimilarTo('embedding', Str::of($query)->toEmbeddings(dimensions: 1536), minSimilarity: 0.5)
+        ->whereVectorSimilarTo('embedding', Str::of($query)
+            ->toEmbeddings(
+                provider: Lab::Ollama,
+                dimensions: 1024,
+                model: 'mxbai-embed-large:latest'
+            ), minSimilarity: 0.6)
         ->limit(3)
         ->get();
 

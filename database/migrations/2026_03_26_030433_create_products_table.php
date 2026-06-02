@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->decimal('price', 8, 2);
             $table->integer('stock')->default(0);
-            $table->vector('embedding', dimensions: 1536)->nullable()->index();
+            $table->vector('embedding', dimensions: 1024)->nullable()->index();
             $table->timestamps();
         });
     }

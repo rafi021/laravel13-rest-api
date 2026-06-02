@@ -17,22 +17,25 @@ class Post extends Model
 
     use Searchable;
 
+    protected function casts(): array
+    {
+        return [
+            'embedding' => 'array',
+        ];
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array<string, mixed>
-     */
     public function toSearchableArray(): array
     {
         return [
-            'id' => (int) $this->id,
+            'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'embedding' => $this->embedding,
         ];
     }
 }
