@@ -14,8 +14,8 @@ use Laravel\Ai\Promptable;
 use Stringable;
 
 
-#[Provider(Lab::Ollama)]
-#[Model('gemma4:e4b')]
+#[Provider(Lab::Gemini)]
+#[Model('gemini-3.5-flash')]
 class ChatAgent implements Agent, Conversational, HasTools
 {
     use Promptable;

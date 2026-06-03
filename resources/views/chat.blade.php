@@ -32,7 +32,7 @@
                     <div class="flex flex-1 flex-col gap-2 pt-1">
                         <div
                             class="prose prose-neutral dark:prose-invert max-w-none text-base leading-relaxed text-neutral-800 dark:text-neutral-200">
-                            👋 Hello! I'm your AI assistant. Ask me anything — from coding help to creative ideas.
+                            👋 Hello! I'm your AI assistant. Ask me anything.
                         </div>
                     </div>
                 </div>
